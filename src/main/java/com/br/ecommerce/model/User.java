@@ -1,6 +1,6 @@
 package com.br.ecommerce.model;
 
-import com.br.ecommerce.DTO.UserRoleDTO;
+import com.br.ecommerce.DTO.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -25,21 +25,18 @@ public class User implements UserDetails {
 
     private String password;
 
-    private String role;
+    private UserRole role;
+
+    public User(String login, String password, UserRole role){
+        this.email = login;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role.equals(UserRoleDTO.ADMIN.name())) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        } else {
-            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
-        }
-    }
-
-    public User(String email, String password, String role) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
+        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

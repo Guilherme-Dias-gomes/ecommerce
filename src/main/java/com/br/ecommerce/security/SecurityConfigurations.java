@@ -27,11 +27,13 @@ public class SecurityConfigurations {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "auth/create").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/create").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
+                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
