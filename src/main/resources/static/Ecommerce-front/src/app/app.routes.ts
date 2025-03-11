@@ -5,5 +5,5 @@ import { authGuard } from './auth.guard';
 export const routes: Routes = [
 { path: '', component: AppComponent, canActivate: [authGuard] }, // Rota protegida
 { path: 'login', component: AppComponent },
-{ path: '**', redirectTo: 'https://www.uol.com.br/' }
+{ path: '**', redirectTo: '' } // Rota de fallback
 ];

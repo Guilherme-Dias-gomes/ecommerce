@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import Swal from 'sweetalert2';
@@ -9,7 +8,7 @@ import { CommonModule } from '@angular/common'; // Importe o CommonModule
 @Component({
 selector: 'app-root',
 standalone: true,
-imports: [RouterOutlet, FormsModule, CommonModule], // Adicione o CommonModule aqui
+imports: [FormsModule, CommonModule], // Adicione o CommonModule aqui
 templateUrl: './app.component.html',
 styleUrls: ['./app.component.css']
 })
